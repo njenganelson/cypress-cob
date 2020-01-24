@@ -1,0 +1,16 @@
+{
+  "firstName":"Mohammed",
+  "secondName":"Ali",
+  "lastName":"Wanza",
+  "gender":"Female",
+  "dayOfBirth":"25",
+  "monthOfBirth":"Oct",
+  "yearOfBirth":"2019",
+  "parentIDType":"Kenyan National ID",
+  "documentType":"Birth Notification",
+  "birth_certificate":"BN23450256",
+  "parentIDNumber":"32215373",
+  "phoneNumber":"745675623",
+  "email":"test_YSA2531@ysa.com",
+  "referralCode":"1622"
+}
