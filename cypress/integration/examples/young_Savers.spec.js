@@ -1,3 +1,7 @@
+import 'cypress-file-upload';
+
+require('cypress-xpath')
+
 describe('Open COB on Cypress',function(){
 
     beforeEach(function() {
@@ -22,9 +26,8 @@ describe('Open COB on Cypress',function(){
 
         cy.get('#resume_link').should('contain','Resume')
 
-        cy.get('.title')
+        cy.get('.title',{timeout:10000})
         .contains('The easiest way')
-        cy.wait(2000)
     })
     it('Open an Young Savers account',function(){
         cy.get('label[for="YOUNG_SAVERS_ACCOUNT"]').click();
@@ -37,17 +40,17 @@ describe('Open COB on Cypress',function(){
         .should('contain','This online account opening application is for customers who are new to I&M Bank and do not already have an account with us.')
         cy.wait(2000)
 
-        cy.get('#new_customer').click()
+        cy.get('#new_customer',{timeout: 10000}).click()
     })
     it('Verify user is navigated to Young Savers account features page',function(){
-        cy.get('.header')
+        cy.get('.header',{timeout:10000})
         .should('contain','What do I need to open this account?')
         .should('contain','Key Account Features')
         .should('contain','Additional Benefits')
-        cy.wait(2000)
     })
 
     it('Click on Open Account',function(){
+        cy.wait(2000)
         cy.get('.ui.button').contains('Open this Account').click()
     })
 
@@ -69,7 +72,7 @@ describe('Open COB on Cypress',function(){
 
     //If Customer selects non-residence
         cy.wait(2000)
-        cy.get('label[for="residency-type-non-resident"]').click();
+        cy.get('label[for="residency-type-non-resident"]',{timeout:10000}).click();
         cy.get('.modal-subtext')
         .should('contain','Select your residency status and we will tell you which documents you will need to have in soft copy.')
         .should('contain','Parent Documents')
@@ -85,7 +88,7 @@ describe('Open COB on Cypress',function(){
 
     //If Customer selects Foreigner
         cy.wait(2000)
-        cy.get('label[for="residency-type-foreigner"]').click();
+        cy.get('label[for="residency-type-foreigner"]',{timeout:10000}).click();
         cy.get('.modal-subtext')
         .should('contain','Select your residency status and we will tell you which documents you will need to have in soft copy.')
         .should('contain','Parent Documents')
@@ -100,21 +103,24 @@ describe('Open COB on Cypress',function(){
         .should('contain','Photo')
         .should('contain','Birth Certificate')
     
+        cy.get('label[for="residency-type-resident"]',{timeout:10000}).click();
         cy.wait(2000)
-        cy.get('label[for="residency-type-resident"]').click();
         cy.get('#confirm-btn').contains('Confirm').click()
     })
     it('Enter Customer name',function(){
-        cy.get('.title-acc-name')
+        cy.get('.title-acc-name',{timeout:10000})
         .should('contain','Young Savers')
 
         cy.get('.detail')
         .should('contain','Opening your account')
         .should('contain',' will only take a few minutes')
 
-        cy.get('#inm__basic-info-first-name').type(this.basicDetails.firstName).should('have.value','Mohammed')
-        cy.get('#inm__basic-info-middle-name').type(this.basicDetails.secondName).should('have.value','Ali')
-        cy.get('#inm__basic-info-last-name').type(this.basicDetails.lastName).should('have.value','Wanza')
+        cy.get('#inm__basic-info-first-name').type(this.basicDetails.firstName)
+        //.should('have.value','Mohammed')
+        cy.get('#inm__basic-info-middle-name').type(this.basicDetails.secondName)
+        //.should('have.value','Ali')
+        cy.get('#inm__basic-info-last-name').type(this.basicDetails.lastName)
+        //.should('have.value','Wanza')
     })
     it('Select Identification Documents and Enter Identity number',function(){
         //Randomize ID Number
@@ -184,7 +190,7 @@ describe('Open COB on Cypress',function(){
         //Accept Terms and Condition
         cy.get('.checkbox').click()
         cy.wait(2000)
-        cy.get('#inm__basic-info-next-button').click()
+        cy.get('#inm__basic-info-next-button',{timeout:10000}).click()
     })
     it('Validate OTP',function(){
         cy.get('.phone-number')
@@ -192,7 +198,7 @@ describe('Open COB on Cypress',function(){
 
         cy.get('#inm__otp-verification-code').type('5555555')
 
-        cy.get('.phone-number', { timeout: 20000 }).should("not.exist");
+        cy.get('.phone-number', { timeout: 60000 }).should("not.exist");
 
    })
     
@@ -273,13 +279,13 @@ describe('Open COB on Cypress',function(){
         cy.get('#inm__basic-info-next-button').click({ force: true})
     })
     it('Enter Parent Income Information',function(){
-        cy.get('.inm__basic-header', {timeout: 5000}).should("exist")
+        cy.get('.inm__basic-header', {timeout: 10000}).should("be.visible")
         cy.get('.inm__basic-header')
         .should('contain','More information about the first parent')
         .should('contain','We require additional details about the first parent listed')
 
         //Enter Parent Income Range
-        cy.get('#inm__basic-income-range').click()
+        cy.get('#inm__basic-income-range',{timeout: 10000}).click()
         cy.get('#inm__basic-income-range')
         .contains(this.parentsDetails.parent1_IncomeRange)
         .click()
@@ -298,7 +304,7 @@ describe('Open COB on Cypress',function(){
         cy.get('label[for="no_notPEP"]')
     })
     it('Enter Parents address',function(){
-        cy.get('#toggle-button-1', {timeout: 5000}).should("exist")
+        cy.get('#toggle-button-1', {timeout: 10000}).should("exist")
         cy.get('#toggle-button-1')
         .should('contain','Address Details')
         .should('contain','Provide information that we can use to get in touch with you')
@@ -306,7 +312,7 @@ describe('Open COB on Cypress',function(){
         //Maximize address field
         cy.get('#expand-collapse-icon-1').click()
 
-        cy.get('label[for="sameAddressCheckBox"]',{timeout: 5000}).should("exist")
+        cy.get('label[for="sameAddressCheckBox"]',{timeout: 10000}).should("exist")
         cy.get('label[for="sameAddressCheckBox"]').click()
         cy.get('#physical_address_building')
         .should('not.be.visible')
@@ -316,7 +322,7 @@ describe('Open COB on Cypress',function(){
         cy.get('#next_button').click()
     })
     it('Select Customer Branch',function(){
-        cy.get('.inm__select-branch-header',{timeout: 5000}).should("exist")
+        cy.get('.inm__select-branch-header',{timeout: 10000}).should("exist")
         cy.get('.inm__select-branch-header')
         .should('contain','Choose your branch')
         //Select Preferred Branch
@@ -328,18 +334,165 @@ describe('Open COB on Cypress',function(){
         //.trigger('mouseover')
         .click()
 
-        cy.get('#next_button',{timeout: 5000}).click()
+        cy.get('#next_button',{timeout: 10000}).click()
 
     })
     it('Navigate to Minor Documents Upload Page',function(){
         cy.get('.minor-uploads__wrapper__header')
-        .should('contain','Upload images of the child’s birth notification and photo')
+        //.should('contain','Upload images of the child’s birth and photo')
         .should('contain','We require you to upload documents for the child')
 
         cy.get('.uploadContainerLabel')
         .should('contain',this.basicDetails.documentType)
         //Click Upload Button to Upload Birth Cerificate
-        cy.get('#birthNotification',chooseFile('C:\\Users\\nelson.njenga\\Documents\\COB_DOCS\\birthCertificate.jpg'))
     })
+    it('Upload Birth Certificate',function(){
+        const fileName = 'birthCertificate.jpg';
 
+        cy.get('.minor-uploads__accordion-header')
+        .find('h1')
+        .should("be.visible")
+        .then(elem => {
+            // elem is a jQuery object
+            console.log(elem.text());
+
+            if (elem.text() == 'Birth Notification') {
+                cy.fixture(fileName).then(fileContent => {
+                    cy.get('.ui.input')
+                    .find('#birthNotification',{timeout: 10000}).should("be.visible")
+                    .upload({ fileContent, fileName, mimeType: './fixtures' });
+                    });
+                }
+                else {
+                cy.fixture(fileName).then(fileContent => {
+                    cy.get('.ui.input')
+                    .find('#birthCertificate',{timeout: 10000}).should("be.visible")
+                    .upload({ fileContent, fileName, mimeType: './fixtures' });
+                    });
+                }
+        cy.get('.reUploadButton',{timeout: 10000}).should("be.visible") 
+            })
+    })
+    it('Upload Child photo',function(){
+        cy.get('#expand-collapse-icon-1').click()
+        const fileName = 'Child.jpg'
+
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('.ui.input')
+            .find('#minorPhoto',{timeout:10000})
+            .upload({fileContent,fileName, mimeType: './fixtures'});
+        });
+        cy.get('.minor-uploads__accordion-header')
+        .find('.exit-app-icon',{timeout: 10000}).should("be.visible")
+        cy.get('#inm__basic-info-next-button',{timeout:10000})
+        .click()
+    })
+    it('Upload Parent ID',function(){
+        cy.get('.parent-uploads__wrapper__header',{timeout:10000})
+        .should('contain','Upload documents for the first parent')
+        .should('contain','We require you to upload documents for the first parent listed')
+
+        cy.get('.section-heading')
+        .should('contain','First Guardian')
+        .should('contain',this.parentsDetails.parent1_FirstName+' '+
+        this.parentsDetails.parent1_MiddleName+' '+this.parentsDetails.parent1_LastName)
+
+        cy.get('#toggle-button-0')
+        .should('contain','Kenyan ID')
+        .should("be.visible")
+        //Upload Parents FrontID   
+        const fileName = 'ID4.jpg'
+
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('.ui.input')
+            .find('#firstParentIdFront',{timeout:10000})
+            .upload({fileContent,fileName, mimeType: './fixtures'});
+        });
+        cy.get('.reUploadButton',{timeout: 10000}).should("be.visible")
+
+        //Upload Parent BackID
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('.ui.input')
+            .find('#firstParentIdBack',{timeout:10000})
+            .upload({fileContent,fileName, mimeType: './fixtures'});
+        });
+        
+    })
+    it('Upload Parent Profile Photo',function(){
+        cy.get('#toggle-button-1')
+        .should('contain','Photo')
+
+        cy.get('#expand-collapse-icon-1').click()
+
+        //Upload Parents Photo
+        const fileName = 'wPhoto.png'
+
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('.ui.input')
+            .find('#firstParentPhoto',{timeout:10000})
+            .upload({fileContent,fileName, mimeType: './fixtures'});
+        });
+
+    })
+    it('Upload Parent Signature',function(){
+        cy.get('#expand-collapse-icon-2',{timeout:10000}).click()
+
+        cy.get('#toggle-button-2',{timeout:10000})
+        .should('contain','Signature')
+
+        cy.get('#inm__basic-info-next-button',{timeout:10000}).should("be.disabled")
+
+        //Upload Parent Siganture
+        const fileName = 'signature2.png'
+
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('.ui.input')
+            .find('#firstParentSignature',{timeout:10000})
+            .upload({fileContent,fileName, mimeType: './fixtures'});
+        });
+
+        cy.get('#toggle-button-2',{timeout:10000})
+        .find('.exit-app-icon')
+        .should("be.visible")
+        cy.get('#inm__basic-info-next-button',{timeout:10000})
+        .should("be.enabled")
+        cy.get('#inm__basic-info-next-button').click()
+     })
+     it('Review Customer Details',function(){
+         cy.get('.inm__review-header',{timeout:10000})
+         .should('contain','Summary and submission')
+         .should('contain','You’re all done! Confirm all the details you have provided are accurate and submit.')
+
+         cy.get('.personal-details')
+         .find('.value')
+         .should('contain',this.basicDetails.firstName+' '+
+         this.basicDetails.secondName+' '+this.basicDetails.lastName)
+         .should('contain',this.parentsDetails.parent1_FirstName+' '+
+         this.parentsDetails.parent1_MiddleName+' '+this.parentsDetails.parent1_LastName)
+
+         cy.get('.account-details')
+         .find('.section-header').should('contain','Account Details')
+         //.find('.product-details').should('contain','Young Savers')
+         cy.get('.account-config')
+         .should('contain','Account Type')
+         .should('contain','Young Savers')
+         
+         cy.get('.branch-details').should("exist")
+         cy.get('.document-details').should("exist")
+
+         cy.get('.young-savers-documents-header')
+         .should('contain','First Parent’s Documents')
+         .should('contain','Child’s Documents')
+
+         //Submit YSA account application
+         cy.get('#next_button',{timeout:10000}).click()
+     })
+     it('Wait for account Creation',function(){
+         cy.get('.inm__loader',{timeout:10000})
+         .should('contain','Submitting your application...')
+         .should("be.visible")
+
+         cy.get('.inm__view-account',{timeout:200000})
+         .should("be.visible")
+     })
 })

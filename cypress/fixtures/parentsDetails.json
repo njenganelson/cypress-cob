@@ -1,16 +1,16 @@
 {
     "parent1_FirstName":"Mama",
-    "parent1_LastName":"Hussein",
-    "parent1_MiddleName":"Ali",
+    "parent1_LastName":"Rose",
+    "parent1_MiddleName":"Omwami",
     "parent1_Gender":"Female",
     "parent1_DayOfBirth":"25",
     "parent1_MonthOfBirth":"Oct",
     "parent1_YearOfBirth":"1990",
     "parent1_RelationShip":"Mother",
 
-    "parent1_IncomeRange":"250,000-1M",
-    "parent1_IncomeSource":"Investment",
-    "parent1_KRAPin":"A123451212W",
+    "parent1_IncomeRange":"50,000-249,999",
+    "parent1_IncomeSource":"Business",
+    "parent1_KRAPin":"A123454454U",
 
     "parent2_FirstName":"BABA",
     "parent2_SecondName":"ALI",
