@@ -1,7 +1,7 @@
 {
     "parent1_FirstName":"Mama",
-    "parent1_LastName":"Rose",
-    "parent1_MiddleName":"Omwami",
+    "parent1_LastName":"Muthomi",
+    "parent1_MiddleName":"Muthomi",
     "parent1_Gender":"Female",
     "parent1_DayOfBirth":"25",
     "parent1_MonthOfBirth":"Oct",
@@ -31,6 +31,6 @@
     "parent2_IncomeSource":"Business",
     "parent2_KRAPin":"A125555333W",
 
-    "prefferedBranch":"KENYATTA AVENUE"
+    "preferredBranch":"BIASHARA STREET"
 
 }
