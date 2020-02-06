@@ -1,0 +1,36 @@
+{
+    "parent1_FirstName":"Mama",
+    "parent1_LastName":"Hussein",
+    "parent1_MiddleName":"Ali",
+    "parent1_Gender":"Female",
+    "parent1_DayOfBirth":"25",
+    "parent1_MonthOfBirth":"Oct",
+    "parent1_YearOfBirth":"1990",
+    "parent1_RelationShip":"Mother",
+
+    "parent1_IncomeRange":"250,000-1M",
+    "parent1_IncomeSource":"Investment",
+    "parent1_KRAPin":"A123451212W",
+
+    "parent2_FirstName":"BABA",
+    "parent2_SecondName":"ALI",
+    "parent2_MiddleName":"HUSSEIN",
+    "parent2_Gender":"Male",
+    "parent2_IDType":"Kenyan National ID",
+
+    "parent2_IDNumber":"32215164",
+    "parent2_PhoneNumber":"745675622",
+    "parent2_Email":"test_YSA2322@ysa.com",
+    
+    "parent2_DayOfBirth":"25",
+    "parent2_MonthOfBirth":"Oct",
+    "parent2_YearOfBirth":"2019",
+    "parent2_RelationShip":"Father",
+
+    "parent2_IncomeRange":"Over 1M",
+    "parent2_IncomeSource":"Business",
+    "parent2_KRAPin":"A125555333W",
+
+    "prefferedBranch":"KENYATTA AVENUE"
+
+}
