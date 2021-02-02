@@ -382,7 +382,7 @@ describe('Open COB on Cypress',function() {
         cy.get('#toggle-button-0')
             .should('contain', 'Kenyan ID')
             .should("be.visible")
-        //Upload Parents FrontID   
+        //Upload Parents FrontID ducument
         const fileName = 'ID4.jpg'
 
         cy.fixture(fileName).then(fileContent => {
