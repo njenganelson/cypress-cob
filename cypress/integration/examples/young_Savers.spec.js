@@ -483,7 +483,7 @@ describe('Open COB on Cypress',function() {
          .should('contain','First Parent’s Documents')
          .should('contain','Child’s Documents')
 
-         //Submit YSA account application
+         //Submit YSA account application for Account number
          cy.get('#next_button',{timeout:10000}).click()
      })
      it('Wait for account Creation',function(){
