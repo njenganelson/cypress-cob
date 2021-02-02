@@ -6,9 +6,7 @@ describe('Open COB on Cypress',function() {
 
     beforeEach(function () {
         cy.fixture('basicDetails').then((basicDetails) => {
-
             this.basicDetails = basicDetails;
-
         })
         cy.fixture('childAdress').then((childAdress) => {
             this.childAdress = childAdress;
@@ -18,7 +16,7 @@ describe('Open COB on Cypress',function() {
         })
     })
     it('Confirm User is navigated to need analysis', function () {
-        cy.visit('http://customer-onboarding-onboarding-uat.apps.staging.devops.inm.corp/needs-analysis')
+        cy.visit('https://onboarding-uat.192.168.238.27.nip.io/needs-analysis')
         cy.get('.option-title')
             .should('contain', 'Individual Account')
             .should('contain', 'Joint Account')
@@ -212,7 +210,7 @@ describe('Open COB on Cypress',function() {
     it('Enter Childs Address Information', function () {
         //Select Town
         cy.get('#physical_address_town').click()
-        cy.get('#physical_address_town')
+        cy.get('#physical_address_town', {timeout: 10000})
             .contains(this.childAdress.childsAddressTown)
             .click()
 
@@ -350,75 +348,90 @@ describe('Open COB on Cypress',function() {
         cy.get('.minor-uploads__accordion-header')
             .find('h1')
             .should("be.visible")
-        cy.fixture(fileName).then(fileContent =>{
-            cy.get('[type="file"]',{timeout:10000}).first()
-                .upload({fileContent,fileName,mimeType:'images/jpeg'})
+        cy.fixture(fileName).then(fileContent => {
+            cy.get('[type="file"]', {timeout: 10000}).first()
+                .upload({fileContent, fileName, mimeType: 'images/jpeg'})
         })
         cy.wait(2000)
         cy.get('.reUploadButton', {timeout: 10000}).should("be.visible")
     })
-    it('Upload Child photo',function(){
+    it('Upload Child photo', function () {
         cy.get('#expand-collapse-icon-1').click()
         const fileName = 'Child.jpg'
 
-        cy.fixture(fileName).then(fileContent=>{
+        cy.fixture(fileName).then(fileContent => {
             cy.get('.ui.input')
-            .find('#minorPhoto',{timeout:10000})
-            .upload({fileContent,fileName, mimeType: 'images/jpeg'});
+                .find('#minorPhoto', {timeout: 10000})
+                .upload({fileContent, fileName, mimeType: 'images/jpeg'});
         });
         cy.get('.minor-uploads__accordion-header')
-        .find('.exit-app-icon',{timeout: 10000}).should("be.visible")
-        cy.get('#inm__basic-info-next-button',{timeout:10000})
-        .click()
+            .find('.exit-app-icon', {timeout: 10000}).should("be.visible")
+        cy.get('#inm__basic-info-next-button', {timeout: 10000})
+            .click()
     })
-    it('Upload Parent ID',function(){
-        cy.get('.parent-uploads__wrapper__header',{timeout:10000})
-        .should('contain','Upload documents for the first parent')
-        .should('contain','We require you to upload documents for the first parent listed')
+    it('Upload Parent ID', function () {
+        cy.get('.parent-uploads__wrapper__header', {timeout: 10000})
+            .should('contain', 'Upload documents for the first parent')
+            .should('contain', 'We require you to upload documents for the first parent listed')
 
         cy.get('.section-heading')
-        .should('contain','First Guardian')
-        .should('contain',this.parentsDetails.parent1_FirstName+' '+
-        this.parentsDetails.parent1_MiddleName+' '+this.parentsDetails.parent1_LastName)
+            .should('contain', 'First Guardian')
+            .should('contain', this.parentsDetails.parent1_FirstName + ' ' +
+                this.parentsDetails.parent1_MiddleName + ' ' + this.parentsDetails.parent1_LastName)
 
         cy.get('#toggle-button-0')
-        .should('contain','Kenyan ID')
-        .should("be.visible")
+            .should('contain', 'Kenyan ID')
+            .should("be.visible")
         //Upload Parents FrontID   
         const fileName = 'ID4.jpg'
 
-        cy.fixture(fileName).then(fileContent=>{
+        cy.fixture(fileName).then(fileContent => {
             cy.get('.ui.input')
-            .find('#firstParentIdFront',{timeout:10000})
-            .upload({fileContent,fileName, mimeType: 'images/jpeg'});
+                .find('#firstParentIdFront', {timeout: 10000})
+                .upload({fileContent, fileName, mimeType: 'images/jpeg'});
         });
-        cy.get('.reUploadButton',{timeout: 10000}).should("be.visible")
+        cy.get('.reUploadButton', {timeout: 10000}).should("be.visible")
 
         //Upload Parent BackID
-        cy.fixture(fileName).then(fileContent=>{
+        cy.fixture(fileName).then(fileContent => {
             cy.get('.ui.input')
-            .find('#firstParentIdBack',{timeout:10000})
-            .upload({fileContent,fileName, mimeType: 'images/jpeg'});
+                .find('#firstParentIdBack', {timeout: 10000})
+                .upload({fileContent, fileName, mimeType: 'images/jpeg'});
         });
         cy.wait(2000)
     })
-    it('Upload Parent Profile Photo',function(){
+    it('Upload Parent Profile Photo', function () {
         cy.get('#toggle-button-1')
-        .should('contain','Photo')
+            .should('contain', 'Photo')
 
         cy.get('#expand-collapse-icon-1').click()
 
         //Upload Parents Photo
         const fileName = 'wPhoto.png'
 
-        cy.fixture(fileName).then(fileContent=>{
+        cy.contains('Take Live Photo').click()
+        cy.get('.header', {timeout: 10000})
+            .should('contain', 'Photo of yourself')
+            .should('contain', 'Take a picture instantly!')
+        cy.wait(2000)
+        cy.get('#inner-circle', {timeout: 20000}).click()
+
+        cy.get('.confirm', {timeout: 10000})
+            .should('contain', 'I’m happy with this photo')
+        cy.get('.confirm', {timeout: 10000}).click()
+
+        cy.get('[type="button"]', {timeout: 10000})
+            .should('contain', 're-capture')
+            .should("be.visible")
+
+        /*cy.fixture(fileName).then(fileContent=>{
             cy.get('.ui.input')
             .find('#firstParentPhoto',{timeout:10000})
             .upload({fileContent,fileName,mimeType: 'images/png'});
-        });
+        });*/
         cy.wait(2000)
-
     })
+
     it('Upload Parent Signature',function(){
         cy.get('#expand-collapse-icon-2',{timeout:10000}).click()
 
